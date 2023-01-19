@@ -69,6 +69,7 @@
     text-align: center;
     border-radius: 4px;
     border: none;
+    cursor: pointer;
 }
 
 .alignment {
@@ -85,7 +86,7 @@
     font-weight: normal;
     padding-top: 20px;
 }
-/* 
+
 .is-hidden {
     position: absolute;
     width: 1px;
@@ -98,7 +99,4 @@
     clip-path: inset(100%);
     clip: rect(0 0 0 0);
     overflow: hidden;
-}  */
-.is-hidden{
-    display: none;
-}
+}  
