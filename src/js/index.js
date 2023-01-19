@@ -9,21 +9,20 @@ let gallery = new SimpleLightbox('.gallery a');
 let value = '';
 let page = 1;
 
-// const guard = document.querySelector('.js-guard');
 
 
-// const options = {
-//   root: null,
-//   rootMargin: '300px',
-//   threshold: 0
-// }
+const guard = document.querySelector('.js-guard');
 
-// let observer = new IntersectionObserver(onLoad, options);
 
-// function onLoad() {
-//   console.log(`HELLO`);
-// }
+const options = {
+  root: null,
+  rootMargin: '300px',
+  threshold: 0
+}
 
+let totalImg = 0;
+let totalPage = 0; 
+// const observer = new IntersectionObserver(infiniteScroll, options);
 
 async function onSubmit(evt) {
   evt.preventDefault();
@@ -39,7 +38,7 @@ async function onSubmit(evt) {
   
   const data = await getData(value, page);
   if (data.totalHits === 0) {
-    Notiflix.Notify.info(
+    Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
     return;
@@ -48,7 +47,23 @@ async function onSubmit(evt) {
   refs.loadMore.classList.remove('is-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
-  gallery.refresh();
+
+  totalPage = Math.ceil(data.total/40);
+  // gallery.refresh();
+
+  // observer.observe(refs.guard);
+  // const markup = createMarkup(data.hits);
+  // totalImg += data.hits.length;
+  // refs.gallery.insertAdjacentHTML('beforeend', markup);
+  
+  
+
+  // if (totalImg >= data.totalHits) {
+  //   observer.unobserve(refs.guard);
+  //   Notiflix.Notify.warning(
+  //     "We're sorry, but you've reached the end of search results."
+  //   );
+  // }
   
 }
 
@@ -56,7 +71,8 @@ async function loadMoreData() {
   page += 1;
   const data = await getData(value, page);
   //Math.ceil - rounds the argument to the nearest higher integer
-  if (Math.ceil(data.totalHits / data.hits.length) === page) {
+  totalImg += data.hits.length;
+  if ( totalPage < page) {
     refs.loadMore.classList.add('is-hidden');
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
@@ -73,6 +89,14 @@ async function loadMoreData() {
   window.scrollBy({
     top: cardHeight * 2,
     behavior: 'smooth',
+  });
+}
+
+function infiniteScroll(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      onSubmit();
+    }
   });
 }
 
