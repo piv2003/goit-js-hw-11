@@ -41,6 +41,7 @@ async function onSubmit(evt) {
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
   totalPage = Math.ceil(data.total / data.hits.length);
+  gallery.refresh()
 }
 
 async function loadMoreData() {
