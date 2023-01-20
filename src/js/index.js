@@ -36,26 +36,27 @@ async function onSubmit(evt) {
     );
     return;
   }
-  evt.target.reset();
-  refs.loadMore.classList.remove('is-hidden');
+  evt.target.reset();//restores default values
+  refs.loadMore.classList.remove('is-hidden');//shows "load more" button
+  //shows the image loaded from the server on the page
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
+  //Math.ceil - rounds the argument to the nearest higher integer
   totalPage = Math.ceil(data.total / data.hits.length);
-  gallery.refresh()
+  gallery.refresh()//reinitializes the lightbox after manipulating the home
 }
 
 async function loadMoreData() {
   page += 1;
-  const data = await getData(value, page);
-  //Math.ceil - rounds the argument to the nearest higher integer
+  const data = await getData(value, page);  
   if (totalPage < page) {
-    refs.loadMore.classList.add('is-hidden');
+    refs.loadMore.classList.add('is-hidden');//hide the "load more" button
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
   }
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
-  gallery.refresh();
+  gallery.refresh();//reinitializes the lightbox after manipulating the home
   const { height: cardHeight } = document
     .querySelector('.gallery')
     //returns the size of the element and its position relative to the viewport
