@@ -18,7 +18,7 @@ async function onSubmit(evt) {
   value = evt.target.searchQuery.value.trim();
   refs.loadMore.classList.add('is-hidden');
   page = 1;
-  if (!value) {
+  if (!value) {//if the user has not entered anything
     Notiflix.Notify.warning('Please enter a keyword to search.');
     return;
   } else {
@@ -27,17 +27,16 @@ async function onSubmit(evt) {
 
   const data = await getData(value, page);
   if (data.totalHits === 0) {
+    //if nothing is found for the user-entered passphrase
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
     return;
   }
-
-  evt.target.reset();
+  
   refs.loadMore.classList.remove('is-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
-
   totalPage = Math.ceil(data.total / data.hits.length);  
 }
 
