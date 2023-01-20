@@ -18,7 +18,8 @@ async function onSubmit(evt) {
   value = evt.target.searchQuery.value.trim();
   refs.loadMore.classList.add('is-hidden');
   page = 1;
-  if (!value) {//if the user has not entered anything
+  if (!value) {
+    //if the user has not entered anything
     Notiflix.Notify.warning('Please enter a keyword to search.');
     return;
   } else {
@@ -33,17 +34,16 @@ async function onSubmit(evt) {
     );
     return;
   }
-  
   refs.loadMore.classList.remove('is-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
-  totalPage = Math.ceil(data.total / data.hits.length);  
+  totalPage = Math.ceil(data.total / data.hits.length);
 }
 
 async function loadMoreData() {
   page += 1;
   const data = await getData(value, page);
-  //Math.ceil - rounds the argument to the nearest higher integer  
+  //Math.ceil - rounds the argument to the nearest higher integer
   if (totalPage < page) {
     refs.loadMore.classList.add('is-hidden');
     Notiflix.Notify.info(
@@ -54,10 +54,11 @@ async function loadMoreData() {
   gallery.refresh();
   const { height: cardHeight } = document
     .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
     //returns the size of the element and its position relative to the viewport
+    .firstElementChild.getBoundingClientRect();  
 
-  window.scrollBy({//scrolling the screen up three rows of images
+  window.scrollBy({
+    //scrolling the screen up three rows of images
     top: cardHeight * 3,
     behavior: 'smooth',
   });
