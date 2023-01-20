@@ -8,6 +8,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 let gallery = new SimpleLightbox('.gallery a');
 let page = 1;
 let value = '';
+let totalPage = 0;
 const options = {
   root: null,
   rootMargin: '300px',
