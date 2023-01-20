@@ -36,6 +36,7 @@ async function onSubmit(evt) {
     );
     return;
   }
+  evt.target.reset();
   refs.loadMore.classList.remove('is-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
