@@ -1,5 +1,5 @@
 import { refs } from './refs';
-import api, { getData } from './getData';
+import { getData } from './getData';
 import { markupCard } from './markup';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
@@ -22,7 +22,7 @@ async function onSubmit(evt) {
   // page = 1;
   if (!value) {
     //if the user has not entered anything
-    Notiflix.Notify.warning('Please enter a keyword to search.');
+    Notiflix.Notify.failure('Please enter a keyword to search.');
     return;
   } else {
     refs.gallery.innerHTML = '';
