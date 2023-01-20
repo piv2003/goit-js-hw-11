@@ -7,14 +7,11 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let gallery = new SimpleLightbox('.gallery a');
 
-const guard = document.querySelector('.js-guard');
 const options = {
   root: null,
   rootMargin: '300px',
   threshold: 0,
 };
-
-let totalImg = 0;
 
 async function onSubmit(evt) {
   evt.preventDefault();
@@ -47,8 +44,7 @@ async function onSubmit(evt) {
 async function loadMoreData() {
   page += 1;
   const data = await getData(value, page);
-  //Math.ceil - rounds the argument to the nearest higher integer
-  totalImg += data.hits.length;
+  //Math.ceil - rounds the argument to the nearest higher integer  
   if (totalPage < page) {
     refs.loadMore.classList.add('is-hidden');
     Notiflix.Notify.info(
@@ -56,9 +52,7 @@ async function loadMoreData() {
     );
   }
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
-
   gallery.refresh();
-
   const { height: cardHeight } = document
     .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
@@ -69,14 +63,6 @@ async function loadMoreData() {
     behavior: 'smooth',
   });
 }
-
-// function infiniteScroll(entries, observer) {
-//   entries.forEach(entry => {
-//     if (entry.isIntersecting) {
-//       onSubmit();
-//     }
-//   });
-// }
 
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMore.addEventListener('click', loadMoreData);
