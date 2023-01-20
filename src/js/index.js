@@ -1,9 +1,9 @@
+import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
 import { refs } from './refs';
 import { getData } from './getData';
 import { markupCard } from './markup';
-import Notiflix from 'notiflix';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let gallery = new SimpleLightbox('.gallery a');
 let page = 1;
@@ -61,8 +61,8 @@ async function loadMoreData() {
     .firstElementChild.getBoundingClientRect();  
 
   window.scrollBy({
-    //scrolling the screen up two rows of images
-    top: cardHeight * 2,
+    //scrolling the screen up three rows of images
+    top: cardHeight * 3,
     behavior: 'smooth',
   });
 }
