@@ -61,8 +61,8 @@ async function loadMoreData() {
     .firstElementChild.getBoundingClientRect();  
 
   window.scrollBy({
-    //scrolling the screen up three rows of images
-    top: cardHeight * 3,
+    //scrolling the screen up two rows of images
+    top: cardHeight * 2,
     behavior: 'smooth',
   });
 }
