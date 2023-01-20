@@ -6,7 +6,8 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let gallery = new SimpleLightbox('.gallery a');
-
+let page = 1;
+let value = '';
 const options = {
   root: null,
   rootMargin: '300px',
@@ -15,9 +16,9 @@ const options = {
 
 async function onSubmit(evt) {
   evt.preventDefault();
-  const value = evt.target.searchQuery.value.trim();
+  value = evt.target.searchQuery.value.trim();
   refs.loadMore.classList.add('is-hidden');
-  let page = 1;
+  // page = 1;
   if (!value) {
     //if the user has not entered anything
     Notiflix.Notify.warning('Please enter a keyword to search.');
