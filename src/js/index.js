@@ -16,9 +16,10 @@ const options = {
 };
 
 async function onSubmit(evt) {
+  //handling the event of pressing the "search" button
   evt.preventDefault();
   value = evt.target.searchQuery.value.trim();
-  refs.loadMore.classList.add('is-hidden');
+  refs.loadMore.classList.add('is-hidden'); //hide the "load more" button
   page = 1;
   if (!value) {
     //if the user has not entered anything
@@ -36,31 +37,33 @@ async function onSubmit(evt) {
     );
     return;
   }
-  evt.target.reset();//restores default values
-  refs.loadMore.classList.remove('is-hidden');//shows "load more" button
+  evt.target.reset(); //restores default values
+  refs.loadMore.classList.remove('is-hidden'); //shows "load more" button
   //shows the image loaded from the server on the page
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   Notiflix.Notify.success(`Hooray! We found ${data.total} images..`);
   //Math.ceil - rounds the argument to the nearest higher integer
   totalPage = Math.ceil(data.total / data.hits.length);
-  gallery.refresh()//reinitializes the lightbox after manipulating the home
+  gallery.refresh(); //reinitializes the lightbox after manipulating the home
 }
 
-async function loadMoreData() {
+async function loadMoreData(evt) {
+  //handling the "load more" button click event
+  evt.preventDefault();
   page += 1;
-  const data = await getData(value, page);  
+  const data = await getData(value, page);
   if (totalPage < page) {
-    refs.loadMore.classList.add('is-hidden');//hide the "load more" button
+    refs.loadMore.classList.add('is-hidden'); //hide the "load more" button
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
   }
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
-  gallery.refresh();//reinitializes the lightbox after manipulating the home
+  gallery.refresh(); //reinitializes the lightbox after manipulating the home
   const { height: cardHeight } = document
     .querySelector('.gallery')
     //returns the size of the element and its position relative to the viewport
-    .firstElementChild.getBoundingClientRect();  
+    .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
     //scrolling the screen up three rows of images
