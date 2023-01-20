@@ -17,7 +17,7 @@ async function onSubmit(evt) {
   evt.preventDefault();
   const value = evt.target.searchQuery.value.trim();
   refs.loadMore.classList.add('is-hidden');
-  page = 1;
+  let page = 1;
   if (!value) {
     //if the user has not entered anything
     Notiflix.Notify.warning('Please enter a keyword to search.');
