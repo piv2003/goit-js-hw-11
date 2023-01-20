@@ -3,7 +3,7 @@ import SimpleLightbox from 'simplelightbox';
 import { refs } from './refs';
 import { getData } from './getData';
 import { markupCard } from './markup';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let gallery = new SimpleLightbox('.gallery a');
 let page = 1;
