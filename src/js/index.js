@@ -5,6 +5,7 @@ import { getData } from './getData';
 import { markupCard } from './markup';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+
 let gallery = new SimpleLightbox('.gallery a');
 let page = 1;
 let value = '';
@@ -52,12 +53,17 @@ async function loadMoreData(evt) {
   evt.preventDefault();
   page += 1;
   const data = await getData(value, page);
+
   if (totalPage < page) {
     refs.loadMore.classList.add('is-hidden'); //hide the "load more" button
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
-  }
+  } else {
+    Notiflix.Notify.success(
+      `Attention! Remaining ${(totalPage-page)*40} images.`
+    );
+  } 
   refs.gallery.insertAdjacentHTML('beforeend', markupCard(data.hits));
   gallery.refresh(); //reinitializes the lightbox after manipulating the home
   const { height: cardHeight } = document
